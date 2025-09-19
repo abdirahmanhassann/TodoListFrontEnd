@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+    /* margin: auto; */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.root {
+    margin: auto;
+    height: 100vh;
+}
+
+.main-centre-div {
+    justify-self: center;
+    background: #2a2a2a;
+    border-radius: 10px;
+    margin: 15px;
+    padding: 33px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-block: 30px;
+    margin-inline: 17px;
+}
+
+.input {
+    background-color: inherit;
+    color: white !important;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+    width: 250px;
+    height: 40px;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-top-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
+    height: 100vh;
+    gap: 100px;
+    color: white;
+    margin-top: 100px;
+}
+
+h3 {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button {
+    padding: 8px;
+    background: linear-gradient(to right, rgb(84 85 85), rgb(94 96 105));
+    border: none;
+    color: white;
+    font-size: 19px;
+    cursor: pointer;
+    transition: 0.5em ease-in-out;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 800;
+    cursor: pointer;
+    text-Decoration-Line: underline;
+    margin-top: 0;
+    align-content: center;
+}
+
+.list {
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.selectedTask{
+    width: 350px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 24px;
+    position:relative;
+}
