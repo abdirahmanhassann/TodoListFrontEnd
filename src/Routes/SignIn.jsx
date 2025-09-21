@@ -27,7 +27,8 @@ function SignIn() {
         )
         console.log(signIn)
     }
-    function submit() {
+    function submit(e) {
+        e.preventDefault()
         setLoading(true);
      //   setTimeout(()=>{
             console.log(signIn.username[0],signIn.password[0])
@@ -46,7 +47,7 @@ function SignIn() {
                     console.log('login details:',res)
                     setLoginError(false)
                     localStorage.setItem('user', JSON.stringify(res));
-                    navigate('/tasks');
+                    location.reload()
                 }
             }
             )
@@ -63,11 +64,11 @@ function SignIn() {
         <div className='main-top-div'>
             <h1>Welcome to the Todo List App</h1>
         <div className='main-centre-div'>
-            <div className='form'>
+            <form>
                 <h3>signIn</h3>
                 <Input color='secondary'  required={true} className='input' placeholder='Username' name='username' onChange={(e) => handleChangeFunction(e)} />
                 <Input color='primary' required={true} className='input' placeholder='Password' name='password' onChange={(e) => handleChangeFunction(e)} />
-                <button className='submit-button' onClick={submit}>
+                <button className='submit-button' type='submit' onClick={submit}>
                     {
                         loading?
                     <CircularProgress size={20}/>
@@ -79,7 +80,7 @@ function SignIn() {
                     <p style={{fontWeight:'100'}}>Don't have an account?</p>
                     <Link className='link' to={'/signup'}>Sign up here</Link>
                     </div>
-            </div>
+            </form>
         </div>
                     {
                         loginError &&
