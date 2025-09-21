@@ -19,7 +19,7 @@ body {
     padding: 33px;
 }
 
-form {
+.form {
     display: flex;
     flex-direction: column;
     gap: 24px;

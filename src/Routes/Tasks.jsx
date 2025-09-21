@@ -41,6 +41,7 @@ function addNewTask() {
     ]);
     setTitle('');
     setDescription('');
+    //fetch()
 }
 
 function selectTask(task) {
@@ -51,7 +52,7 @@ function updateTask() {
     console.log(selectedTask,tasks)
     setTasks(tasks.map(t =>
         t.id === selectedTask.id
-            ? { ...t, title: selectedTask.title[0], description: selectedTask.description[0]}
+            ? { ...t, title: selectedTask.title, description: selectedTask.description}
             : t
     ));
     setSelectedTask(null);
@@ -64,6 +65,7 @@ function deleteTask() {
 
     setTasks(tasks.filter(t => t.id !== selectedTask.id));
     setSelectedTask(null);
+    //fetch()
 }
 
 return (
