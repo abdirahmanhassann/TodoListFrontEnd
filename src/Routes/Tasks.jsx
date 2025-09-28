@@ -6,13 +6,22 @@ const [tasks, setTasks] = useState([]);
 const [selectedTask, setSelectedTask] = useState(null);
 const [title, setTitle] = useState('');
 const [description, setDescription] =useState('');
-
+const [jsonUser,setJsonUser]=useState(JSON.parse(localStorage.getItem('user')));
+const [user,setUser]=useState({ID:jsonUser.ID,userName:jsonUser.userName,password:'2',rePassword:'2',name:jsonUser.name})
 useEffect(()=>{
     window. scrollTo({ top: 0, left: 0});
+    setUser( { ...user,password:"f",rePassword:"f"})
     getTasks();
 },[])
+
 function getTasks(){
-    fetch('')
+    const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(user)
+        }; 
+        console.log(requestOptions.body)
+    fetch(`${import.meta.env.VITE_API_URL}/GetAllTasks`,requestOptions)
     .then(res=>res.json())
     .then(res=> setTasks(res));
     console.log(tasks);
@@ -22,7 +31,7 @@ function handleChange(e){
     setSelectedTask(i=>{
         return {
             ...i,
-            [e.target.name]:[e.target.value]
+            [e.target.name]:e.target.value
         }
     })
     
@@ -30,18 +39,32 @@ function handleChange(e){
 function addNewTask() {
 
     if (!title.trim()) return;
-    setTasks([
-        ...tasks,
-        {
+    setTitle('');
+    setDescription('');
+
+      const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+            userID:user.ID,
             id: tasks.length+1,
             title:title,
             description:description,
             completed: false
-        }
-    ]);
-    setTitle('');
-    setDescription('');
-    //fetch()
+            })
+        }; 
+        console.log(requestOptions.body)
+    fetch(`${import.meta.env.VITE_API_URL}/AddNewTask`,requestOptions)
+    .then(res=>res.json())
+    .then(res=> {
+    if(!res){
+        setTasks(tasks.pop())
+    }
+    else{
+        getTasks();
+    }
+    });
+    console.log(tasks);
 }
 
 function selectTask(task) {
@@ -55,17 +78,37 @@ function updateTask() {
             ? { ...t, title: selectedTask.title, description: selectedTask.description}
             : t
     ));
-    setSelectedTask(null);
-    //fetch ('update')
-    // .then(res=>res.json)
-    // .then(res=> setTasks(res))
+    const requestOptions = {
+        method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(selectedTask)
+        }; 
+    console.log(requestOptions.body)
+    fetch(`${import.meta.env.VITE_API_URL}/UpdateTask`,requestOptions)
+    .then(res=>res.json())
+    .then(res=> {
+        setSelectedTask(null);
+    })
 }
 
 function deleteTask() {
-
-    setTasks(tasks.filter(t => t.id !== selectedTask.id));
-    setSelectedTask(null);
-    //fetch()
+const requestOptions = {
+    method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                title:selectedTask.title,
+                description:selectedTask.description,
+                id:selectedTask.id,
+                isDeleted:true
+            })
+        }; 
+    console.log(requestOptions.body)
+    fetch(`${import.meta.env.VITE_API_URL}/UpdateTask`,requestOptions)
+    .then(res=>res.json())
+    .then(res=> {
+        setTasks(tasks.filter(t =>t.id !== selectedTask.id));
+        setSelectedTask(null);
+    })
 }
 
 return (

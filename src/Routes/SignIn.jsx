@@ -21,7 +21,7 @@ function SignIn() {
         setsignIn((i) => {
             return {
                 ...i,
-                [e.target.name] : [e.target.value]
+                [e.target.name] : e.target.value
             }
         }
         )
@@ -31,17 +31,18 @@ function SignIn() {
         e.preventDefault()
         setLoading(true);
      //   setTimeout(()=>{
-            console.log(signIn.username[0],signIn.password[0])
+            console.log(signIn.username,signIn.password)
             const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name:'', rePassword:'', userName:signIn.username[0], password:signIn.password[0] })
+            body: JSON.stringify({ name:'', rePassword:'', userName:signIn.username, password:signIn.password})
         };
         fetch(`${import.meta.env.VITE_API_URL}/Login`,requestOptions)
             .then(res=>res.json())
             .then(res=>{
-                if(!res){
+                if(!res.ID){
                 setLoginError(true)
+                console.log('login details:',res)
                 }
                 else{
                     console.log('login details:',res)
@@ -67,7 +68,7 @@ function SignIn() {
             <form>
                 <h3>signIn</h3>
                 <Input color='secondary'  required={true} className='input' placeholder='Username' name='username' onChange={(e) => handleChangeFunction(e)} />
-                <Input color='primary' required={true} className='input' placeholder='Password' name='password' onChange={(e) => handleChangeFunction(e)} />
+                <Input color='primary' required={true} className='input' type='password' placeholder='Password' name='password' onChange={(e) => handleChangeFunction(e)} />
                 <button className='submit-button' type='submit' onClick={submit}>
                     {
                         loading?
