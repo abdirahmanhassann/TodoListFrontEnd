@@ -110,6 +110,12 @@ const requestOptions = {
         setSelectedTask(null);
     })
 }
+  function handleBackgroundClick(e) {
+    if (e.target.classList.contains('selectedTaskContainer')) {
+      setSelectedTask(null);
+    }
+}
+
 
 return (
     <div className='main-top-div' style={{ display: 'flex', gap: '32px' }}>
@@ -128,7 +134,7 @@ return (
                 onChange={e => setDescription(e.target.value)}
             />
             <button className='submit-button' onClick={addNewTask}>Add Task</button>
-            <div style={{ marginTop: '20px' }}>
+            <div className='tasksContainer'>
                 <h3>Tasks</h3>
                 <ul style={{ listStyle: 'none', padding: 0 }}>
                     {tasks.length > 0 && tasks.map(task => (
@@ -150,7 +156,12 @@ return (
             </div>
         </div>
         {selectedTask && (
-            <div className='selectedTask'>
+            <div className='selectedTaskContainer' 
+            onClick={handleBackgroundClick}
+            >
+            <div className='selectedTask'
+             onClick={e => e.stopPropagation()}
+             >
                 <h2>Edit Task</h2>
                 <Input
                     value={selectedTask.title}
@@ -194,9 +205,10 @@ return (
                     </button>
                 </div>
             </div>
+            </div>
         )}
     </div>
 )
 }
 
-export default Tasks
+export default Tasks;
