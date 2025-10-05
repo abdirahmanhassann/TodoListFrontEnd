@@ -20,14 +20,11 @@ function getTasks(){
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(user)
         }; 
-        console.log(requestOptions.body)
     fetch(`${import.meta.env.VITE_API_URL}/GetAllTasks`,requestOptions)
     .then(res=>res.json())
     .then(res=> setTasks(res));
-    console.log(tasks);
 }
 function handleChange(e){    
-    console.log(e.target)
     setSelectedTask(i=>{
         return {
             ...i,
@@ -53,7 +50,6 @@ function addNewTask() {
             completed: false
             })
         }; 
-        console.log(requestOptions.body)
     fetch(`${import.meta.env.VITE_API_URL}/AddNewTask`,requestOptions)
     .then(res=>res.json())
     .then(res=> {
@@ -64,15 +60,16 @@ function addNewTask() {
         getTasks();
     }
     });
-    console.log(tasks);
 }
 
 function selectTask(task) {
     setSelectedTask(task);
 }
-
+function signOut(){
+    localStorage.clear()
+    window.location.reload();
+}
 function updateTask() {
-    console.log(selectedTask,tasks)
     setTasks(tasks.map(t =>
         t.id === selectedTask.id
             ? { ...t, title: selectedTask.title, description: selectedTask.description}
@@ -83,7 +80,6 @@ function updateTask() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(selectedTask)
         }; 
-    console.log(requestOptions.body)
     fetch(`${import.meta.env.VITE_API_URL}/UpdateTask`,requestOptions)
     .then(res=>res.json())
     .then(res=> {
@@ -102,7 +98,6 @@ const requestOptions = {
                 isDeleted:true
             })
         }; 
-    console.log(requestOptions.body)
     fetch(`${import.meta.env.VITE_API_URL}/UpdateTask`,requestOptions)
     .then(res=>res.json())
     .then(res=> {
@@ -120,7 +115,10 @@ const requestOptions = {
 return (
     <div className='main-top-div' style={{ display: 'flex', gap: '32px' }}>
         <div className='main-centre-div' style={{ flex: 1 }}>
+            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between'}}>
             <h1>Tasks</h1>
+            <button className='signout-button' onClick={signOut}>signout</button>
+            </div>
             <Input
                 placeholder='Add a new task...'
                 className='input'

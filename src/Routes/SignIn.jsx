@@ -25,13 +25,11 @@ function SignIn() {
             }
         }
         )
-        console.log(signIn)
     }
     function submit(e) {
         e.preventDefault()
         setLoading(true);
      //   setTimeout(()=>{
-            console.log(signIn.username,signIn.password)
             const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -42,10 +40,8 @@ function SignIn() {
             .then(res=>{
                 if(!res.ID){
                 setLoginError(true)
-                console.log('login details:',res)
                 }
                 else{
-                    console.log('login details:',res)
                     setLoginError(false)
                     localStorage.setItem('user', JSON.stringify(res));
                     location.reload()
@@ -53,7 +49,6 @@ function SignIn() {
             }
             )
             .catch(e=>{
-                console.log('This is the error: ',e)
             })
             setLoading(false);
         

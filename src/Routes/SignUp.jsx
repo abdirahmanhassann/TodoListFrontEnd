@@ -24,13 +24,11 @@ function SignUp() {
             }
         }
         )
-        console.log(signUp)
     }
     function submit(e) {
         e.preventDefault();
                 setLoading(true);
              //   setTimeout(()=>{
-                    console.log(signUp)
                     const requestOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -44,10 +42,8 @@ function SignUp() {
                     .then(res=>{
                         if(!res){
                             setSignUpError(true)
-                            console.log(res,signUpError)
                         }
                         else{
-                            console.log('login details:',res)
                             setSignUpError(false)
                             localStorage.setItem('user', JSON.stringify(res));
                             navigate('../')
@@ -55,7 +51,6 @@ function SignUp() {
                     }
                     )
                     .catch(e=>{
-                        console.log('This is the error: ',e)
                         setLoading(false);
                     })
                     setLoading(false);
