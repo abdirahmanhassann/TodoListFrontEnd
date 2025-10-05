@@ -1,7 +1,7 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router";
 import SignIn from './Routes/SignIn';
-import SignUp from './Routes/Signup';
+import SignUp from './Routes/SignUp';
 import Tasks from './Routes/Tasks';
 import { createContext, useEffect, useState } from 'react';
 function App() {
